@@ -1,0 +1,74 @@
+/*
+* You are given a HashMap with n number of keys and values.
+* You need to print key-value pairs that are an anagram of each other in the dictionary order of keys
+* (alphabetical order based on the first letter of the word).
+ * An Anagram is a word, phrase, or name formed by rearranging the letters of another.
+ * 
+ * Input:
+
+3
+BAT TAB
+CAT DOG
+EAT TEA
+
+Output:
+
+BAT:TAB
+EAT:TEA*/
+
+import java.util.*;
+public class Source{
+    //Method to check if two strings are anagram of each other or not
+    public static boolean check(String str1, String str2){
+        char[] ch1 = str1.toLowerCase().toCharArray();
+        char[] ch2 = str2.toLowerCase().toCharArray();
+        //Write your code here
+        arrange(ch1);
+        arrange(ch2);
+        if(ch1.length==ch2.length){
+            for (int i=0;i<ch1.length;i++){
+                if(ch1[i]!=ch2[i]){
+                    return false;
+                }
+            }
+        }
+        else {
+            return false;
+        }
+        return true;
+    }
+    //Method to sort the character array
+    public static void arrange(char[] ch){
+        //Write your code here
+        Arrays.sort(ch);
+    }
+
+    public static void main(String[] x){
+        Map<String,String> map = new HashMap<>();
+        Scanner sc = new Scanner(System.in);
+        int num = sc.nextInt();
+        String key;
+        String value;
+        for(int i = 1; i <= num; i++){
+            key = sc.next();
+            value = sc.next();
+            map.put(key,value);
+        }
+        //Write your code here
+        Map<String,String> out = new HashMap<>();
+        for(Map.Entry<String,String> temp : map.entrySet()){
+            if(check(temp.getKey(),temp.getValue())){
+                out.put(temp.getKey(),temp.getValue());
+            }
+        }
+        if (out.isEmpty()){
+            System.out.println(false);
+        }
+        else{
+            for(Map.Entry<String,String> temp : out.entrySet()){
+                System.out.println(temp.getKey()+" : "+temp.getValue());
+            }
+        }
+
+    }
+}
