@@ -1,0 +1,46 @@
+
+/*You will be given an array of integers and a target sum.
+You have to check whether there exist any two integers in the array whose sum is equal to the given target sum.
+If so, then print true; otherwise, print false.*/
+
+import java.util.HashSet;
+import java.util.Scanner;
+class PairWithGivenSum
+{
+    public static void main (String[] args)
+    {
+        Scanner in = new Scanner(System.in);
+
+        // number of the elements
+        int n = in.nextInt();
+
+        int array[] = new int[n];
+
+        //storing the input integers to an array
+        for(int i =0;i<n;i++){
+            array[i] = in.nextInt();
+        }
+
+        // getting the target sum from input
+        int targetSum = in.nextInt();
+
+        HashSet<Integer> hashset = new HashSet<>();
+        boolean flag=false;
+
+        //write your code here
+        for (int i=0;i< array.length;i++){
+            int difference= targetSum-array[i];
+            if(hashset.contains(difference)){
+                flag=true;
+                System.out.println(true);
+            }
+            else {
+                hashset.add(array[i]);
+            }
+        }
+
+        if(!flag){
+            System.out.println(false);
+        }
+    }
+}
