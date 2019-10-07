@@ -1,0 +1,75 @@
+/*
+* Description
+You will be given the source and destination of all the tickets in the form of a map, 
+and you have to print the itinerary from all those tickets.
+Note: 
+
+    The path covered by the tickets is not circular. 
+    Other than the final destination, there is exactly one ticket from every city.
+
+
+Input: The input will be in the below format:
+
+    The first line will be an integer ‘n’ indicating the size of the map containing source and destination 
+    of the all the tickets.
+    The next ‘n’ lines will be source and destination of the all the tickets.
+    Each line represents the source and destination of each ticket, separated by space.
+
+
+ 
+Output: The output should be in the below format
+
+    Print all the names of the cities in the itinerary, separated by a space. 
+    Note: 
+        If you cannot get the start of the itinerary, print 'Invalid'.
+        If multiple itineraries are possible and if they are also valid, 
+        then print the itinerary which is the largest in lexicographical order when the complete itinerary is 
+        treated as a string. For example, refer to the ‘Sample Test case 2’ given below.
+*/
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class FindItineraryFromTickets {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+
+        // get the no of tickets from input
+        int n = in.nextInt();
+
+        // map to store all the tickets
+        Map<String, String> tickets = new HashMap<String, String>();
+
+        // Store the source and destination of the tickets to the map "tickets"
+        for (int i = 0; i < n; i++) {
+            tickets.put(in.next(), in.next());
+            in.nextLine();
+        }
+
+        Map<String, String> reverseTickets = new HashMap<>();
+        for (String key: tickets.keySet()) {
+            reverseTickets.put(tickets.get(key),key);
+        }
+
+        String starting=null;
+        boolean flag=false;
+        for (String key: tickets.keySet()) {
+            if(!reverseTickets.containsKey(key)){
+                starting=key;
+                flag=true;
+                break;
+            }
+        }
+        if(flag) {
+            String temp = starting;
+            while (temp != null) {
+                System.out.print(temp + " ");
+                temp = tickets.get(temp);
+            }
+        }
+        else {
+            System.out.println("Invalid");
+        }
+    }
+}
